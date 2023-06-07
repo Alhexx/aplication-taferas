@@ -78,4 +78,18 @@ public class TarefaService {
         }
     }
 
+    public ResponseEntity<Tarefa> arquivarTarefa(Integer id) { 
+        Optional<Tarefa> tarefaFind = tarefaRepository.findById(id);
+
+        if(!tarefaFind.isPresent()) {
+            throw new IllegalArgumentException("Tarefa com o id " + id + " não existe!");
+        } else {
+            Tarefa tarefa = tarefaFind.get();
+            Optional<Estado> estadoFind = estadoRepository.findByEstado("Arquivada");
+            tarefa.setEstado(estadoFind.get());
+            tarefa = tarefaRepository.save(tarefa);
+            return ResponseEntity.ok(tarefa);
+        }
+    }
+
 }
