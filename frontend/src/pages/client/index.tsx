@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Card,
-  Modal,
-} from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import api from "../../services/api";
 import Router from "next/router";
@@ -32,6 +24,8 @@ const Client: React.FC = () => {
     },
   ];
 
+  const SubmitAuthor = async (event) => {};
+
   async function getData() {
     try {
       setIsLoading(true);
@@ -51,6 +45,7 @@ const Client: React.FC = () => {
 
       setIsLoading(false);
     } catch (error) {
+      toast.error("Erro de fetch");
       setIsLoading(false);
     }
   }
@@ -88,7 +83,11 @@ const Client: React.FC = () => {
                     </Button>
                   </Col>
                 </Row>
-                <TableTarefas columns={columns} data={data} />
+                <TableTarefas
+                  columns={columns}
+                  data={data}
+                  atualizaTabela={getData}
+                />
               </article>
             </div>
           </section>
