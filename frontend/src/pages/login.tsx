@@ -20,18 +20,24 @@ export default function login() {
       email: email,
       password: password,
     };
-    var res;
+
     setIsWaitingResponse(true);
+
     try {
-      res = await api.post("/usuarios/login", userData, {
-        headers: { "content-type": "application/json" },
+      const response = await api.post("/usuarios/login", userData, {
+        headers: { "Content-Type": "application/json" },
       });
-      console.log(res);
+
+      const { id, name, email } = response.data;
+
+      localStorage.setItem("id", id);
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
     } catch (error) {
       console.log(JSON.stringify(error));
       toast.error("Login Error!");
-      setIsWaitingResponse(false);
     }
+
     setIsWaitingResponse(false);
   };
 
