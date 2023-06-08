@@ -104,7 +104,7 @@ const TableTarefas: React.FC<TableProps> = ({
           Arquivar
         </MenuItem>
 
-        <MenuItem className={styles.menuitem}>Ativa/Inativa</MenuItem>
+        <MenuItem className={styles.menuitem}>Mudar Status</MenuItem>
       </ContextMenu>
     </>
   );
