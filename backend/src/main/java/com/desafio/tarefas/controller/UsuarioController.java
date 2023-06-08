@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.desafio.tarefas.model.Usuario;
+import com.desafio.tarefas.model.dto.LoginDTO;
 import com.desafio.tarefas.service.UsuarioService;
 
 import java.util.List;
@@ -29,15 +30,14 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
-    Optional<Usuario> usuarioFind = usuarioService.findByEmail(email);
-    System.out.println(email);
-    
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+    Optional<Usuario> usuarioFind = usuarioService.findByEmail(loginDTO.getEmail());
+
     if (!usuarioFind.isPresent()) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email not registered");
     }
     
-    if (!usuarioFind.get().getPassword().equals(password)) {
+    if (!usuarioFind.get().getPassword().equals(loginDTO.getPassword())) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
     }
 
