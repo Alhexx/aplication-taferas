@@ -47,6 +47,9 @@ const TableTarefas: React.FC<TableProps> = ({
       {
         columns,
         data,
+        initialState: {
+          sortBy: [{ id: "id", desc: false }],
+        },
       },
       useRowSelect
     );
@@ -69,6 +72,20 @@ const TableTarefas: React.FC<TableProps> = ({
           <tbody {...getTableBodyProps()}>
             {rows.map((row) => {
               prepareRow(row);
+              const estado = row.original.estado;
+              {
+                console.log(row.original);
+              }
+              const rowColor =
+                estado == "Não Iniciada"
+                  ? "white"
+                  : estado == "Em Progresso"
+                  ? "#b2e2f2"
+                  : "#fabfb7";
+
+              {
+                console.log(rowColor);
+              }
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
@@ -78,7 +95,7 @@ const TableTarefas: React.FC<TableProps> = ({
                         {...cell.getCellProps({
                           onClick: () => handleRowClick(row),
                           style: {
-                            background: isSelected ? "lightgray" : "white",
+                            background: isSelected ? "lightgray" : rowColor,
                             cursor: "pointer",
                           },
                         })}
