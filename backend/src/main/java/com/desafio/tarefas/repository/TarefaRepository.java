@@ -1,5 +1,6 @@
 package com.desafio.tarefas.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ import com.desafio.tarefas.model.Tarefa;
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
 
     public Optional<Tarefa> findByTitulo(String titulo);
+
+    public List<Tarefa> findByUsuarioId(Integer usuarioId);
     
 }

@@ -27,6 +27,9 @@ public class Tarefa {
 	@JoinColumn(name = "id_estado")
     private Estado estado;
     
+    @ManyToOne(optional = false)
+	@JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     public Integer getId() {
         return id;
@@ -59,5 +62,13 @@ public class Tarefa {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
 }

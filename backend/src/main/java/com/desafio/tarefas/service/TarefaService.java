@@ -1,5 +1,6 @@
 package com.desafio.tarefas.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.desafio.tarefas.model.Estado;
 import com.desafio.tarefas.model.Tarefa;
+import com.desafio.tarefas.model.Usuario;
 import com.desafio.tarefas.model.dto.TarefaDTO;
 import com.desafio.tarefas.model.dto.TarefaEstadoDTO;
 import com.desafio.tarefas.repository.EstadoRepository;
 import com.desafio.tarefas.repository.TarefaRepository;
+import com.desafio.tarefas.repository.UsuarioRepository;
 
 @Service
 public class TarefaService {
@@ -22,6 +25,9 @@ public class TarefaService {
     @Autowired
     private EstadoRepository estadoRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     public ResponseEntity<?> createTarefa(TarefaDTO tarefaDTO) {
         ResponseEntity<?> responseEntity;
         try {
@@ -30,6 +36,7 @@ public class TarefaService {
                 responseEntity = ResponseEntity.status(HttpStatus.CONFLICT).body("Tarefa com esse titulo já existe"); 
             } else {
                 Optional<Estado> estadoFind = estadoRepository.findByEstado("Não Iniciada");
+                Optional<Usuario> usuarioFind = usuarioRepository.findById(tarefaDTO.getIdUsuario());
                 if(!estadoFind.isPresent()) {
                     responseEntity = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estado não encontrado"); 
                 } else {
@@ -37,6 +44,7 @@ public class TarefaService {
                     tarefa.setTitulo(tarefaDTO.getTitulo());
                     tarefa.setDescricao(tarefaDTO.getDescricao());
                     tarefa.setEstado(estadoFind.get());
+                    tarefa.setUsuario(usuarioFind.get());
                     tarefaRepository.save(tarefa);
                     responseEntity = ResponseEntity.ok(tarefa);
                 }
@@ -90,6 +98,10 @@ public class TarefaService {
             tarefa = tarefaRepository.save(tarefa);
             return ResponseEntity.ok(tarefa);
         }
+    }
+
+    public List<Tarefa> tarefaPorUsuario(Integer usuarioId) {
+        return tarefaRepository.findByUsuarioId(usuarioId);
     }
 
 }

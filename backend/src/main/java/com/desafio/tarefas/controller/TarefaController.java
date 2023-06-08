@@ -1,7 +1,10 @@
 package com.desafio.tarefas.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,5 +39,10 @@ public class TarefaController {
     @PostMapping("/arquivar/{id}")
     public ResponseEntity<Tarefa> arquivarTarefa(@PathVariable(value = "id") Integer id) {
         return tarefaService.arquivarTarefa(id);
+    }
+
+    @GetMapping("/usuario/{id}")
+    public List<Tarefa> getTarefasByUsuario(@PathVariable("id") Integer usuarioId) {
+        return tarefaService.tarefaPorUsuario(usuarioId);
     }
 }

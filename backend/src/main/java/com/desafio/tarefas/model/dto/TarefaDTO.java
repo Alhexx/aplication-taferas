@@ -4,6 +4,8 @@ public class TarefaDTO {
     private String titulo;
     private String descricao;
     private Integer idEstado;
+    private Integer idUsuario;
+
 
     public String getTitulo() {
         return titulo;
@@ -27,5 +29,13 @@ public class TarefaDTO {
 
     public void setIdEstado(Integer idEstado) {
         this.idEstado = idEstado;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

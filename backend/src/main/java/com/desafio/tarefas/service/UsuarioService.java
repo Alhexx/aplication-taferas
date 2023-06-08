@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.desafio.tarefas.model.Usuario;
+import com.desafio.tarefas.model.dto.UsuarioDTO;
 import com.desafio.tarefas.repository.UsuarioRepository;
 
 import java.util.List;
@@ -23,29 +24,33 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Usuario getUsuarioById(Long id) {
-        return usuarioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid usuario ID: " + id));
+    public Optional<Usuario> getUsuarioById(Integer id) {
+        return usuarioRepository.findById(id);
     }
 
-    public Usuario createUsuario(Usuario usuario) {
-        Optional<Usuario> usuarioFind = usuarioRepository.findByEmail(usuario.getEmail());
+    public Usuario createUsuario(UsuarioDTO usuarioDTO) {
+        Optional<Usuario> usuarioFind = usuarioRepository.findByEmail(usuarioDTO.getEmail());
         if (usuarioFind.isPresent()) {
             throw new IllegalArgumentException("Email already exists");
-        }
+        }  
+
+        Usuario usuario = new Usuario();
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setName(usuarioDTO.getName());
+        usuario.setPassword(usuarioDTO.getPassword());
+
         return usuarioRepository.save(usuario);
     }
 
-    public void updateUsuario(Long id, Usuario usuario) {
+    public void updateUsuario(Integer id, Usuario usuario) {
         if (!usuarioRepository.existsById(id)) {
             throw new IllegalArgumentException("Invalid usuario ID: " + id);
         }
-        // Additional validations and business logic can be implemented here
         usuario.setId(id);
         usuarioRepository.save(usuario);
     }
 
-    public void deleteUsuario(Long id) {
+    public void deleteUsuario(Integer id) {
         if (!usuarioRepository.existsById(id)) {
             throw new IllegalArgumentException("Invalid usuario ID: " + id);
         }
@@ -53,8 +58,6 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> findByEmail(String email) {
-        // Implement the logic to find a Usuario by email from the repository
-        // Example:
         return usuarioRepository.findByEmail(email);
     }
 }
