@@ -80,7 +80,7 @@ const TableTarefas: React.FC<TableProps> = ({
                 estado == "Não Iniciada"
                   ? "white"
                   : estado == "Em Progresso"
-                  ? "#b2e2f2"
+                  ? "#b0f2c2"
                   : "#fabfb7";
 
               {
