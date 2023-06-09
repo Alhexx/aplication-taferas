@@ -18,7 +18,7 @@ export function Menu() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand onClick={() => Router.push("/")} as="a">
           <Image
             src="/logo-base-color.png"
             alt={"Logique"}
@@ -32,7 +32,9 @@ export function Menu() {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto"></Nav>
               <Nav>
-                <Nav.Link href="/client">Tarefas</Nav.Link>
+                <Nav.Link onClick={() => Router.push("/client")} as="a">
+                  Tarefas
+                </Nav.Link>
                 <LogOut />
               </Nav>
             </Navbar.Collapse>
@@ -43,8 +45,12 @@ export function Menu() {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto"></Nav>
               <Nav>
-                <Nav.Link href="/login">Login</Nav.Link>
-                <Nav.Link href="/register">Registrar-se</Nav.Link>
+                <Nav.Link onClick={() => Router.push("/login")} as="a">
+                  Login
+                </Nav.Link>
+                <Nav.Link onClick={() => Router.push("/register")} as="a">
+                  Registrar-se
+                </Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </>

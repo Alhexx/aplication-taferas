@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { Container, Row, Col, Alert, Form, Card } from "react-bootstrap";
 
 export default function Home() {
@@ -11,13 +12,11 @@ export default function Home() {
               <h3>Entre na sua conta</h3>
             </hgroup>
             <div className="grid">
-              <a href="/register">
-                <button>Registre-se</button>
-              </a>
+              <button onClick={() => Router.push("/register")}>
+                Registre-se
+              </button>
 
-              <a href="/login">
-                <button>Login</button>
-              </a>
+              <button onClick={() => Router.push("/login")}>Login</button>
             </div>
             <hgroup>
               <h3>

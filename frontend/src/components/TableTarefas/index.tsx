@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTable, useRowSelect } from "react-table";
+import { useTable, usePagination, useRowSelect } from "react-table";
 import {
   ContextMenu,
   MenuItem,
@@ -10,8 +10,9 @@ import { toast } from "react-toastify";
 import api from "../../services/api";
 
 import styles from "./style.module.scss";
-import { Col } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import ModalStatus from "../ModalStatus";
+import ModatlAttTarefa from "../ModalAttTarefa";
 
 interface TableProps {
   columns: any[];
@@ -26,6 +27,7 @@ const TableTarefas: React.FC<TableProps> = ({
 }) => {
   const [selected, setSelected] = useState(null);
   const [modalStatus, setModalStatus] = useState(false);
+  const [modalAtt, setModalAtt] = useState(false);
   const handleRowClick = async (row) => {
     setSelected(row.original);
   };
@@ -44,17 +46,29 @@ const TableTarefas: React.FC<TableProps> = ({
     }
   }
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-        initialState: {
-          sortBy: [{ id: "id", desc: false }],
-        },
-      },
-      useRowSelect
-    );
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    state,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    usePagination,
+    useRowSelect
+  );
 
   return (
     <>
@@ -72,7 +86,7 @@ const TableTarefas: React.FC<TableProps> = ({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               const estado = row.original.estado;
 
@@ -133,6 +147,20 @@ const TableTarefas: React.FC<TableProps> = ({
               : ""
           }`}
           onClick={() => {
+            setModalAtt(true);
+          }}
+          disabled={selected === null || selected.estado === "Finalizada"}
+        >
+          Editar Tarefa
+        </MenuItem>
+
+        <MenuItem
+          className={`${styles.menuitem} ${
+            selected === null || selected.estado === "Finalizada"
+              ? styles.disabled
+              : ""
+          }`}
+          onClick={() => {
             setModalStatus(true);
           }}
           disabled={selected === null || selected.estado === "Finalizada"}
@@ -140,12 +168,79 @@ const TableTarefas: React.FC<TableProps> = ({
           Mudar Status
         </MenuItem>
       </ContextMenu>
+      <Row className={styles.tablepagination}>
+        <Col xs={12} sm="auto" className="d-flex py-1">
+          <div>
+            <Button
+              as={Col}
+              xs="auto"
+              variant="dark"
+              onClick={() => gotoPage(0)}
+              disabled={!canPreviousPage}
+              className={styles.button}
+            >
+              {"<<"}
+            </Button>{" "}
+            <Button
+              as={Col}
+              xs="auto"
+              variant="dark"
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+              className={styles.button}
+            >
+              {"<"}
+            </Button>{" "}
+          </div>
+        </Col>
+        <Col>
+          <Col xs={12} sm="auto" className="d-flex py-1">
+            <span>
+              Página{" "}
+              <strong>
+                {state.pageIndex + 1} de {pageOptions.length}
+              </strong>
+            </span>
+          </Col>
+        </Col>
+        <Col xs={12} sm="auto" className="d-flex py-1">
+          <div>
+            <Button
+              as={Col}
+              xs="auto"
+              variant="dark"
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              className={styles.button}
+            >
+              {">"}
+            </Button>{" "}
+            <Button
+              as={Col}
+              xs="auto"
+              variant="dark"
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+              className={styles.button}
+            >
+              {">>"}
+            </Button>{" "}
+          </div>
+        </Col>
+      </Row>
+
       <Col xs={12} sm={12} md={12} lg={12}>
         <ModalStatus
           show={modalStatus}
           fecharModal={() => setModalStatus(false)}
           atualizaTabela={atualizaTabela}
           tarefaId={selected ? selected.id : null}
+        />
+        <ModatlAttTarefa
+          show={modalAtt}
+          fecharModal={() => setModalAtt(false)}
+          atualizaTabela={atualizaTabela}
+          dados={selected ? selected : null}
         />
       </Col>
     </>

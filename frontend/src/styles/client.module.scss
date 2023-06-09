@@ -1,12 +1,14 @@
-.addTarefa {
-  margin-top: 1.5rem;
-  width: 50%;
+.button {
+  margin: 0;
+  width: 30%;
   float: right;
+  margin-bottom: 5px;
+  margin-right: 15px;
 }
 
 @media (max-width: 576px) {
-  .addTarefa {
-    width: 100%;
+  .button {
+    width: 93%;
     float: none;
   }
 }
