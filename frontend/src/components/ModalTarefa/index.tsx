@@ -47,9 +47,8 @@ const ModalTarefa: React.FC<ModalTarefaProps> = ({
       }
       fecharModal();
     } catch (error) {
-      console.log(JSON.stringify(error));
       setIsWaitingResponse(false);
-      toast.error("Erro de cadastro");
+      toast.error(error.response.data);
     }
     setIsWaitingResponse(false);
   };
