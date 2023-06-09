@@ -29,13 +29,15 @@ export default function register() {
         await api.post(backend_url + "/usuarios", userData, {
           headers: { "content-type": "application/json" },
         });
+
+        toast.success("Usuário cadastrado com sucesso!");
       } catch (error) {
         console.log(JSON.stringify(error));
         setIsWaitingResponse(false);
-        toast.error("Cadastration error!");
+        toast.error("Erro de cadastramento!");
       }
       setIsWaitingResponse(false);
-    } else toast.error("Divergence on password!");
+    } else toast.error("Senhas não batem!");
   };
 
   return (
