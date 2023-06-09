@@ -13,7 +13,7 @@ Certifique-se de ter as seguintes ferramentas instaladas em seu sistema:
 - Clone o repositório:
 
 ```bash
-git clone https://github.com/Alhexx/aplication-taferas.git
+git clone https://github.com/Alhexx/application-taferas.git
 ```
 
 ## Configuração do Backend (Spring Boot)

@@ -31,9 +31,9 @@ public class TarefaController {
         return tarefaService.createTarefa(tarefaDTO);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Tarefa> updateTarefa(@PathVariable(value = "id") Integer id, @RequestBody @Valid TarefaEstadoDTO tarefaEstadoDTO) {
-        return tarefaService.updateTarefa(id, tarefaEstadoDTO);
+    @PutMapping("/estado/{id}")
+    public ResponseEntity<?> updateTarefaEstado(@PathVariable(value = "id") Integer id, @RequestBody @Valid TarefaEstadoDTO tarefaEstadoDTO) {
+        return tarefaService.updateTarefaEstado(id, tarefaEstadoDTO);
     }
 
     @PostMapping("/arquivar/{id}")

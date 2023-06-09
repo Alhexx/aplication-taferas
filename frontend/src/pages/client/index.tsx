@@ -42,6 +42,8 @@ const Client: React.FC = () => {
         estadoId: item.estado.id,
       }));
 
+      dados.sort((a, b) => a.estadoId - b.estadoId);
+
       setData(dados);
 
       setIsLoading(false);

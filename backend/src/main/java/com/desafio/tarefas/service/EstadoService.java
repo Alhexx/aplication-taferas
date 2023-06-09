@@ -1,5 +1,7 @@
 package com.desafio.tarefas.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,9 @@ public class EstadoService {
             estado.setEstado(e.getLabel());
             estadoRepository.save(estado);
         }
+    }
+
+    public List<Estado> estadoSemArquivado() {
+        return estadoRepository.findAllSemArquivado();
     }
 }

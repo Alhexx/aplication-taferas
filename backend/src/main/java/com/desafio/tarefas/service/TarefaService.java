@@ -55,31 +55,73 @@ public class TarefaService {
         return responseEntity;
     }
 
-    public ResponseEntity<Tarefa> updateTarefa(Integer id, TarefaEstadoDTO tarefaEstadoDTO) {
+    // public ResponseEntity<?> updateTarefaEstado(Integer id, TarefaEstadoDTO tarefaEstadoDTO) {
+    //     ResponseEntity<?> responseEntity;
+    //     try {
+    //         Optional<Tarefa> tarefaFind = tarefaRepository.findById(id);
+    //         Optional<Estado> novoEstado = estadoRepository.findById(tarefaEstadoDTO.getIdEstado());
+    
+    //         if (!tarefaFind.isPresent()) {
+    //             responseEntity = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarefa com o id " + id + " não existe!");
+    //         }
+    
+    //         Tarefa tarefa = tarefaFind.get();
+    //         String estadoAtual = tarefa.getEstado().getEstado();
+    //         String novoEstadoStr = novoEstado.get().getEstado();
+    
+    //         if (estadoAtual.equals("Não Iniciada")) {
+    //             if (novoEstadoStr.equals("Em Progresso") || novoEstadoStr.equals("Finalizada")) {
+    //                 tarefa.setEstado(novoEstado.get());
+    //             } else {
+    //                 responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transição de estado inválida para a tarefa.");
+    //             }
+    //         } else if (estadoAtual.equals("Em Progresso")) {
+    //             if (novoEstadoStr.equals("Não Iniciada") || novoEstadoStr.equals("Finalizada")) {
+    //                 tarefa.setEstado(novoEstado.get());
+    //             } else {
+    //                 responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transição de estado inválida para a tarefa.");
+    //             }
+    //         } else if (estadoAtual.equals("Finalizada")) {
+    //             responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A tarefa já está no estado FINALIZADA e não pode ser alterada.");
+    //         } else {
+    //             responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Estado inválido para a tarefa.");
+    //         }
+    
+    //         tarefa = tarefaRepository.save(tarefa);
+    //         responseEntity = ResponseEntity.ok(tarefa);
+    //         return responseEntity;
+    //     } catch (IllegalArgumentException e) {
+    //         return ResponseEntity.badRequest().body(e.getMessage());
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Um erro ocorreu");
+    //     }
+    // }
+
+    public ResponseEntity<?> updateTarefaEstado(Integer id, TarefaEstadoDTO tarefaEstadoDTO) {
         Optional<Tarefa> tarefaFind = tarefaRepository.findById(id);
         Optional<Estado> novoEstado = estadoRepository.findById(tarefaEstadoDTO.getIdEstado());
         
 
         if(!tarefaFind.isPresent()) {
-            throw new IllegalArgumentException("Tarefa com o id " + id + " não existe!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarefa com o id " + id + " não existe!");
         } else {   
             Tarefa tarefa = tarefaFind.get();
             if(tarefa.getEstado().getEstado().equals("Não Iniciada")) {
                 if(novoEstado.get().getEstado().equals("Em Progresso") || novoEstado.get().getEstado().equals("Finalizada")) {
                     tarefa.setEstado(novoEstado.get());    
                 } else {
-                    throw new IllegalArgumentException("Transição de estado inválida para a tarefa.");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transição de estado inválida para a tarefa. Os estados possíveis são: Em Progresso ou Finalizada");
                 }
             } else if (tarefa.getEstado().getEstado().equals("Em Progresso")) {
                 if (novoEstado.get().getEstado().equals("Não Iniciada") || novoEstado.get().getEstado().equals("Finalizada")) {
                     tarefa.setEstado(novoEstado.get());
                 } else {
-                    throw new IllegalArgumentException("Transição de estado inválida para a tarefa.");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transição de estado inválida para a tarefa. Os estados possíveis são: Não Iniciada ou Finalizada");
                 }
             } else if (tarefa.getEstado().getEstado().equals("Finalizada")) {
-                throw new IllegalArgumentException("A tarefa já está no estado FINALIZADA e não pode ser alterada.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A tarefa já está no estado FINALIZADA e não pode ser alterada.");
             } else {
-                throw new IllegalArgumentException("Estado inválido para a tarefa.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Estado inválido para a tarefa.");
             }
             tarefa = tarefaRepository.save(tarefa);
             return ResponseEntity.ok(tarefa);

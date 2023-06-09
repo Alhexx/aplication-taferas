@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import api from "../../services/api";
 
 import styles from "./style.module.scss";
+import { Col } from "react-bootstrap";
+import ModalStatus from "../ModalStatus";
 
 interface TableProps {
   columns: any[];
@@ -23,7 +25,7 @@ const TableTarefas: React.FC<TableProps> = ({
   atualizaTabela,
 }) => {
   const [selected, setSelected] = useState(null);
-
+  const [modalStatus, setModalStatus] = useState(false);
   const handleRowClick = async (row) => {
     setSelected(row.original);
   };
@@ -73,9 +75,8 @@ const TableTarefas: React.FC<TableProps> = ({
             {rows.map((row) => {
               prepareRow(row);
               const estado = row.original.estado;
-              {
-                console.log(row.original);
-              }
+
+              const isSelected = row.original === selected;
               const rowColor =
                 estado == "Não Iniciada"
                   ? "white"
@@ -83,19 +84,21 @@ const TableTarefas: React.FC<TableProps> = ({
                   ? "#b0f2c2"
                   : "#fabfb7";
 
-              {
-                console.log(rowColor);
-              }
               return (
-                <tr {...row.getRowProps()}>
+                <tr
+                  {...row.getRowProps()}
+                  style={{
+                    border: isSelected ? "5px solid #cce5ff" : "none",
+                  }}
+                >
                   {row.cells.map((cell) => {
-                    const isSelected = row.original === selected;
                     return (
                       <td
                         {...cell.getCellProps({
                           onClick: () => handleRowClick(row),
                           style: {
-                            background: isSelected ? "lightgray" : rowColor,
+                            border: "none",
+                            background: rowColor,
                             cursor: "pointer",
                           },
                         })}
@@ -121,8 +124,24 @@ const TableTarefas: React.FC<TableProps> = ({
           Arquivar
         </MenuItem>
 
-        <MenuItem className={styles.menuitem}>Mudar Status</MenuItem>
+        <MenuItem
+          className={styles.menuitem}
+          onClick={() => {
+            setModalStatus(true);
+          }}
+          disabled={selected === null}
+        >
+          Mudar Status
+        </MenuItem>
       </ContextMenu>
+      <Col xs={12} sm={12} md={12} lg={12}>
+        <ModalStatus
+          show={modalStatus}
+          fecharModal={() => setModalStatus(false)}
+          atualizaTabela={atualizaTabela}
+          tarefaId={selected ? selected.id : null}
+        />
+      </Col>
     </>
   );
 };
