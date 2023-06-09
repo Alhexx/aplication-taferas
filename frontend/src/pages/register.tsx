@@ -42,10 +42,10 @@ export default function register() {
 
   return (
     <div>
-      <Head>
+      {/* <Head>
         <title>SAT</title>
-        <meta name="Sign in" content="Naturefitness" />
-      </Head>
+        <meta name="register" content="SAT" />
+      </Head> */}
       <Container className={style.container}>
         <hgroup>
           <h1>Registre-se</h1>

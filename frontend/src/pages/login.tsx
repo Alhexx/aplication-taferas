@@ -45,10 +45,6 @@ export default function login() {
 
   return (
     <div>
-      <Head>
-        <title>SAT</title>
-        <meta name="Sign in" content="Naturefitness" />
-      </Head>
       <Container className={style.container}>
         <hgroup>
           <h1>Logar-se</h1>
