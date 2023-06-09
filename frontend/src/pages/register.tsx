@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Router from "next/router";
 import React, { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import api from "../services/api";
@@ -42,10 +40,6 @@ export default function register() {
 
   return (
     <div>
-      {/* <Head>
-        <title>SAT</title>
-        <meta name="register" content="SAT" />
-      </Head> */}
       <Container className={style.container}>
         <hgroup>
           <h1>Registre-se</h1>
