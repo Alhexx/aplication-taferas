@@ -9,27 +9,10 @@ import { LogOut } from "../Logout";
 
 export function Menu() {
   const [isLoading, setIsLoading] = useState(false);
-  const [role, setRole] = useState("");
-  let isLogged = false;
-
-  const getRole = async () => {
-    try {
-      setIsLoading(true);
-      const resRole = await api.get(
-        "/users/" + sessionStorage.getItem("token")
-      );
-      console.log(resRole.data.roles[0]);
-      setRole(resRole.data.roles[0]);
-
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
+  const [logado, setLogado] = useState(false);
 
   useEffect(() => {
-    getRole();
+    setLogado(localStorage.getItem("id") != null ? true : false);
   }, []);
 
   return (
@@ -38,19 +21,19 @@ export function Menu() {
         <Navbar.Brand href="/">
           <Image
             src="/logo-base-color.png"
-            alt={"SNNB"}
+            alt={"Logique"}
             height={80}
             width={80}
           ></Image>
         </Navbar.Brand>
-        {isLoading ? (
+        {logado ? (
           <>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto"></Nav>
               <Nav>
-                <Nav.Link href="/login">Login</Nav.Link>
-                <Nav.Link href="/register">Registrar-se</Nav.Link>
+                <Nav.Link href="/client">Tarefas</Nav.Link>
+                <LogOut />
               </Nav>
             </Navbar.Collapse>
           </>
@@ -60,27 +43,8 @@ export function Menu() {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto"></Nav>
               <Nav>
-                {role === "ADMIN" ? (
-                  <>
-                    <Nav.Link href="/admin">Admin Page</Nav.Link>
-                    <LogOut />
-                  </>
-                ) : role === "TRAINER" ? (
-                  <>
-                    <Nav.Link href="/trainer">Trainer Page</Nav.Link>
-                    <LogOut />
-                  </>
-                ) : role === "CLIENT" ? (
-                  <>
-                    <Nav.Link href="/client">Client Page</Nav.Link>
-                    <LogOut />
-                  </>
-                ) : (
-                  <>
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/register">Registrar-se</Nav.Link>
-                  </>
-                )}
+                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/register">Registrar-se</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </>

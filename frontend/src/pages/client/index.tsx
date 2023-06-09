@@ -27,6 +27,9 @@ const Client: React.FC = () => {
   const SubmitAuthor = async (event) => {};
 
   async function getData() {
+    if (localStorage.getItem("id") == null) {
+      Router.push("/");
+    }
     try {
       setIsLoading(true);
       const res = await api.get(
@@ -51,7 +54,11 @@ const Client: React.FC = () => {
   }
 
   useEffect(() => {
-    getData();
+    if (localStorage.getItem("id") == null) {
+      Router.push("/");
+    } else {
+      getData();
+    }
   }, []);
 
   return (

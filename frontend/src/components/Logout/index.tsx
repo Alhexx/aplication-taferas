@@ -5,7 +5,9 @@ import { FiLogOut } from "react-icons/fi";
 
 export function LogOut() {
   const logout = () => {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
     window.location.reload(false);
   };
   return (

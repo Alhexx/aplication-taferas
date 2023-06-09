@@ -33,6 +33,8 @@ export default function login() {
       localStorage.setItem("id", id);
       localStorage.setItem("name", name);
       localStorage.setItem("email", email);
+
+      window.location.href = "/client";
     } catch (error) {
       console.log(JSON.stringify(error));
       toast.error("Login Error!");
