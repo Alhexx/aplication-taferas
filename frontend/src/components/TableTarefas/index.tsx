@@ -115,7 +115,9 @@ const TableTarefas: React.FC<TableProps> = ({
       </ContextMenuTrigger>
       <ContextMenu id="tarefas" className={styles.contextmenu}>
         <MenuItem
-          className={styles.menuitem}
+          className={`${styles.menuitem} ${
+            selected === null ? styles.disabled : ""
+          }`}
           onClick={() => {
             arquivaTarefa();
           }}
@@ -125,11 +127,15 @@ const TableTarefas: React.FC<TableProps> = ({
         </MenuItem>
 
         <MenuItem
-          className={styles.menuitem}
+          className={`${styles.menuitem} ${
+            selected === null || selected.estado === "Finalizada"
+              ? styles.disabled
+              : ""
+          }`}
           onClick={() => {
             setModalStatus(true);
           }}
-          disabled={selected === null}
+          disabled={selected === null || selected.estado === "Finalizada"}
         >
           Mudar Status
         </MenuItem>

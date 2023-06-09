@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.desafio.tarefas.model.Tarefa;
 import com.desafio.tarefas.model.dto.TarefaDTO;
 import com.desafio.tarefas.model.dto.TarefaEstadoDTO;
+import com.desafio.tarefas.model.dto.TarefaUpdateDTO;
 import com.desafio.tarefas.service.TarefaService;
 
 import jakarta.validation.Valid;
@@ -34,6 +35,11 @@ public class TarefaController {
     @PutMapping("/estado/{id}")
     public ResponseEntity<?> updateTarefaEstado(@PathVariable(value = "id") Integer id, @RequestBody @Valid TarefaEstadoDTO tarefaEstadoDTO) {
         return tarefaService.updateTarefaEstado(id, tarefaEstadoDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTarefa(@PathVariable(value = "id") Integer id, @RequestBody @Valid TarefaUpdateDTO tarefaUpdateDTO) {
+        return tarefaService.updateTarefa(id, tarefaUpdateDTO);
     }
 
     @PostMapping("/arquivar/{id}")

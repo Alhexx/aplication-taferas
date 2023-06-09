@@ -13,6 +13,7 @@ import com.desafio.tarefas.model.Tarefa;
 import com.desafio.tarefas.model.Usuario;
 import com.desafio.tarefas.model.dto.TarefaDTO;
 import com.desafio.tarefas.model.dto.TarefaEstadoDTO;
+import com.desafio.tarefas.model.dto.TarefaUpdateDTO;
 import com.desafio.tarefas.repository.EstadoRepository;
 import com.desafio.tarefas.repository.TarefaRepository;
 import com.desafio.tarefas.repository.UsuarioRepository;
@@ -81,6 +82,32 @@ public class TarefaService {
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Estado inválido para a tarefa.");
             }
+            tarefa = tarefaRepository.save(tarefa);
+            return ResponseEntity.ok(tarefa);
+        }
+    }
+
+    public ResponseEntity<?> updateTarefa(Integer id, TarefaUpdateDTO tarefaUpdateDTO) {
+        Optional<Tarefa> tarefaFind = tarefaRepository.findById(id);
+
+        if(!tarefaFind.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarefa com o id " + id + " não existe!");
+        } else {
+            Tarefa tarefa = tarefaFind.get();
+            Optional<Tarefa> tarefaTitulo = tarefaRepository.findByTitulo(tarefaUpdateDTO.getTitulo());
+            if(tarefaTitulo.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Tarefa com esse titulo já existe"); 
+            } else {  
+                if(tarefaUpdateDTO.getTitulo() != null) {
+                    System.out.println("ETEST");
+                    tarefa.setTitulo(tarefaUpdateDTO.getTitulo());    
+                }
+            }
+            
+            if(tarefaUpdateDTO.getDescricao() != null) {
+                tarefa.setDescricao(tarefaUpdateDTO.getDescricao());    
+            }
+            
             tarefa = tarefaRepository.save(tarefa);
             return ResponseEntity.ok(tarefa);
         }
