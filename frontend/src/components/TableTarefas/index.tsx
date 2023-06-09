@@ -93,10 +93,10 @@ const TableTarefas: React.FC<TableProps> = ({
               const isSelected = row.original === selected;
               const rowColor =
                 estado == "Não Iniciada"
-                  ? "white"
+                  ? "#ffe4e1"
                   : estado == "Em Progresso"
                   ? "#b0f2c2"
-                  : "#fabfb7";
+                  : "#ff94a2";
 
               return (
                 <tr

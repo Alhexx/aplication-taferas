@@ -7,10 +7,12 @@ import React from "react";
 import TableTarefas from "../../components/TableTarefas";
 import style from "../../styles/client.module.scss";
 import ModalTarefa from "../../components/ModalTarefa";
+import ModalArquivados from "../../components/ModalArquivados";
 
 const Client: React.FC = () => {
   const [data, setData] = useState([]);
   const [modalAdd, setModalAdd] = useState(false);
+  const [modalArq, setModalArq] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const columns = [
@@ -78,16 +80,30 @@ const Client: React.FC = () => {
                     </hgroup>{" "}
                   </Col>
                   <Col xs={12} sm={6} md={6} lg={6}>
-                    <Button
-                      className={style.addTarefa}
-                      variant="success"
-                      size="sm"
-                      onClick={() => {
-                        setModalAdd(true);
-                      }}
-                    >
-                      Adicionar
-                    </Button>
+                    <Row style={{ justifyContent: "end" }}>
+                      <Button
+                        className={style.button}
+                        variant="success"
+                        size="sm"
+                        onClick={() => {
+                          setModalAdd(true);
+                        }}
+                      >
+                        Adicionar
+                      </Button>
+                    </Row>
+                    <Row style={{ justifyContent: "end" }}>
+                      <Button
+                        className={style.button}
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => {
+                          setModalArq(true);
+                        }}
+                      >
+                        Arquivados
+                      </Button>
+                    </Row>
                   </Col>
                 </Row>
                 <TableTarefas
@@ -102,6 +118,13 @@ const Client: React.FC = () => {
             <ModalTarefa
               show={modalAdd}
               fecharModal={() => setModalAdd(false)}
+              atualizaTabela={getData}
+            />
+            <ModalArquivados
+              columns={columns}
+              data={data}
+              show={modalArq}
+              fecharModal={() => setModalArq(false)}
               atualizaTabela={getData}
             />
           </Col>
