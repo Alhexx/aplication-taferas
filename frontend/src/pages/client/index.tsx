@@ -24,8 +24,6 @@ const Client: React.FC = () => {
     },
   ];
 
-  const SubmitAuthor = async (event) => {};
-
   async function getData() {
     if (localStorage.getItem("id") == null) {
       Router.push("/");
