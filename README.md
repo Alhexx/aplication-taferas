@@ -46,19 +46,21 @@ mvn spring-boot:run
 
 ### Comandos para a execução:
 
-1. Instale as depencias
+1. Instale o Yarn
 
 ```bash
-npm i
-# ou
+npm install --global yarn
+```
+
+2. Instale as depencias
+
+```bash
 yarn install
 ```
 
-2. Execute a aplicação
+3. Execute a aplicação
 
 ```bash
-npm run dev
-# ou
 yarn dev
 ```
 
