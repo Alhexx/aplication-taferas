@@ -46,6 +46,20 @@ const TableTarefas: React.FC<TableProps> = ({
     }
   }
 
+  async function excluiTarefa() {
+    try {
+      const res = await api.delete("/tarefas/delete/" + selected.id);
+      try {
+        await atualizaTabela();
+      } catch (error) {
+        toast.error("Erro de Atualizacao da tabela");
+      }
+      toast.success("Tarefa Excluída!");
+    } catch (error) {
+      toast.error(error.response.data);
+    }
+  }
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -166,6 +180,19 @@ const TableTarefas: React.FC<TableProps> = ({
           disabled={selected === null || selected.estado === "Finalizada"}
         >
           Mudar Status
+        </MenuItem>
+        <MenuItem
+          className={`${styles.menuitem} ${
+            selected === null || selected.estado === "Em Progresso"
+              ? styles.disabled
+              : ""
+          }`}
+          onClick={() => {
+            excluiTarefa();
+          }}
+          disabled={selected === null || selected.estado === "Em Progresso"}
+        >
+          Excluir
         </MenuItem>
       </ContextMenu>
       <Row className={styles.tablepagination}>

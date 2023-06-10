@@ -141,4 +141,17 @@ public class TarefaService {
         return tarefaRepository.findArquivadaByUsuarioId(usuarioId);
     }
 
+    public ResponseEntity<?> deleteTarefa(Integer id) {
+        Optional<Tarefa> tarefaFind = tarefaRepository.findById(id);
+        if(!tarefaFind.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarefa com o id " + id + " não existe!");
+        } else {
+            if(tarefaFind.get().getEstado().getEstado().equals("Em Progresso")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tarefas Em progresso não podem ser excluidas");
+            }
+            tarefaRepository.deleteById(id);
+            return ResponseEntity.ok("Tarefa com o id " + id + " foi deletada!");
+        }
+    }
+
 }

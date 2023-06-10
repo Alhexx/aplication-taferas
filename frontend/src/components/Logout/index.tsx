@@ -7,7 +7,6 @@ export function LogOut() {
   const logout = () => {
     localStorage.removeItem("id");
     localStorage.removeItem("name");
-    localStorage.removeItem("email");
     window.location.reload(false);
   };
   return (

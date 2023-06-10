@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,12 +49,17 @@ public class TarefaController {
     }
 
     @GetMapping("/usuario/{id}")
-    public List<Tarefa> getTarefasByUsuario(@PathVariable("id") Integer usuarioId) {
+    public List<Tarefa> getTarefasByUsuario(@PathVariable(value = "id") Integer usuarioId) {
         return tarefaService.tarefaPorUsuario(usuarioId);
     }
 
     @GetMapping("/arquivadas/usuario/{id}")
-    public List<Tarefa> getTarefasArquivadasByUsuario(@PathVariable("id") Integer usuarioId) {
+    public List<Tarefa> getTarefasArquivadasByUsuario(@PathVariable(value = "id") Integer usuarioId) {
         return tarefaService.tarefaArquivadaPorUsuario(usuarioId);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteTarefa(@PathVariable(value = "id") Integer id) {
+        return tarefaService.deleteTarefa(id);
     }
 }

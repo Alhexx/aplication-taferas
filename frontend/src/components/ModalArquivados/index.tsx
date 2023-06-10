@@ -45,6 +45,20 @@ const ModalArquivados: React.FC<ModalArquivadosProps> = ({
     }
   }
 
+  async function excluiTarefa() {
+    try {
+      const res = await api.delete("/tarefas/delete/" + selected.id);
+      try {
+        await atualizaTabela();
+      } catch (error) {
+        toast.error("Erro de Atualizacao da tabela");
+      }
+      toast.success("Tarefa Excluída!");
+    } catch (error) {
+      toast.error(error.response.data);
+    }
+  }
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -132,6 +146,17 @@ const ModalArquivados: React.FC<ModalArquivadosProps> = ({
               disabled={selected === null}
             >
               Desarquivar
+            </MenuItem>
+            <MenuItem
+              className={`${styles.menuitem} ${
+                selected === null ? styles.disabled : ""
+              }`}
+              onClick={() => {
+                excluiTarefa();
+              }}
+              disabled={selected === null}
+            >
+              Excluir
             </MenuItem>
           </ContextMenu>
 
