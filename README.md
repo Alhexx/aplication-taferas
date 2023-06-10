@@ -111,4 +111,4 @@ yarn dev
       ![Tela de Edição de tarefa](./public/tela-edit.png)
 
     - Clicando em <kbd>Excluir</kbd> a tarefa é imediatamente excluida. Tenha em mente que a exclusão tem regras... mas caso alguma seja desrespeitada o usuário recebe um toast explicativo
-      ![Tela de Edição de tarefa](./public/tela-edit.png)
+      ![Tela de Edição de tarefa](./public/tela-context-arquivar.png)
