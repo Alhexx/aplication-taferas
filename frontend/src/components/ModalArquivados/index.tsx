@@ -71,7 +71,7 @@ const ModalArquivados: React.FC<ModalArquivadosProps> = ({
   return (
     <Modal show={show} onHide={fecharModal} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Cadastrar Tarefa</Modal.Title>
+        <Modal.Title>Tarefas Arquivadas</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <>
