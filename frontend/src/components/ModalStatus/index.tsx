@@ -47,6 +47,7 @@ const ModalStatus: React.FC<ModalTarefaProps> = ({
       } catch (error) {
         toast.error("Erro de Atualizacao da tabela");
       }
+      toast.success("Estado atualizado com sucesso!");
       fecharModal();
     } catch (error) {
       setIsWaitingResponse(false);

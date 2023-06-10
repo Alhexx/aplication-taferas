@@ -42,7 +42,7 @@ const TableTarefas: React.FC<TableProps> = ({
       }
       toast.success("Tarefa Arquivada!");
     } catch (error) {
-      toast.error("Erro!");
+      toast.error(error.response.data);
     }
   }
 

@@ -41,7 +41,7 @@ const ModalArquivados: React.FC<ModalArquivadosProps> = ({
       }
       toast.success("Tarefa Desarquivada!");
     } catch (error) {
-      toast.error("Erro!");
+      toast.error(error.response.data);
     }
   }
 

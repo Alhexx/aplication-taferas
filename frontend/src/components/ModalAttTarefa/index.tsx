@@ -47,6 +47,7 @@ const ModatlAttTarefa: React.FC<ModatlAttTarefaProps> = ({
       } catch (error) {
         toast.error("Erro de Atualizacao da tabela");
       }
+      toast.success("Tarefa atualizada com sucesso!");
       fecharModal();
     } catch (error) {
       setIsWaitingResponse(false);

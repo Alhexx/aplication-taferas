@@ -43,7 +43,7 @@ public class TarefaController {
     }
 
     @PostMapping("/des-arquivar/{id}")
-    public ResponseEntity<Tarefa> arquivarTarefa(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<?> arquivarTarefa(@PathVariable(value = "id") Integer id) {
         return tarefaService.arquivarTarefa(id);
     }
 
