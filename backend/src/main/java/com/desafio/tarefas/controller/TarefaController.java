@@ -42,7 +42,7 @@ public class TarefaController {
         return tarefaService.updateTarefa(id, tarefaUpdateDTO);
     }
 
-    @PostMapping("/arquivar/{id}")
+    @PostMapping("/des-arquivar/{id}")
     public ResponseEntity<Tarefa> arquivarTarefa(@PathVariable(value = "id") Integer id) {
         return tarefaService.arquivarTarefa(id);
     }
@@ -50,5 +50,10 @@ public class TarefaController {
     @GetMapping("/usuario/{id}")
     public List<Tarefa> getTarefasByUsuario(@PathVariable("id") Integer usuarioId) {
         return tarefaService.tarefaPorUsuario(usuarioId);
+    }
+
+    @GetMapping("/arquivadas/usuario/{id}")
+    public List<Tarefa> getTarefasArquivadasByUsuario(@PathVariable("id") Integer usuarioId) {
+        return tarefaService.tarefaArquivadaPorUsuario(usuarioId);
     }
 }

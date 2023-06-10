@@ -16,5 +16,8 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
 
     @Query("SELECT t FROM Tarefa t WHERE t.usuario.id = :usuarioId AND t.estado.estado != 'Arquivada'")
     List<Tarefa> findByUsuarioId(Integer usuarioId);
+
+    @Query("SELECT t FROM Tarefa t WHERE t.usuario.id = :usuarioId AND t.estado.estado = 'Arquivada'")
+    List<Tarefa> findArquivadaByUsuarioId(Integer usuarioId);
     
 }

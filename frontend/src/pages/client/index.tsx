@@ -11,6 +11,8 @@ import ModalArquivados from "../../components/ModalArquivados";
 
 const Client: React.FC = () => {
   const [data, setData] = useState([]);
+  const [arq, setArq] = useState([]);
+  const [nomeUser, setNomeUser] = useState("");
   const [modalAdd, setModalAdd] = useState(false);
   const [modalArq, setModalArq] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +29,14 @@ const Client: React.FC = () => {
   ];
 
   async function getData() {
-    if (localStorage.getItem("id") == null) {
-      Router.push("/");
-    }
     try {
       setIsLoading(true);
       const res = await api.get(
         "/tarefas/usuario/" + localStorage.getItem("id")
+      );
+
+      const resArq = await api.get(
+        "/tarefas/arquivadas/usuario/" + localStorage.getItem("id")
       );
 
       const dados = res.data.map((item) => ({
@@ -43,10 +46,16 @@ const Client: React.FC = () => {
         estado: item.estado.estado,
         estadoId: item.estado.id,
       }));
+      const dadosArq = resArq.data.map((item) => ({
+        id: item.id,
+        titulo: item.titulo,
+        estado: item.estado.estado,
+      }));
 
       dados.sort((a, b) => a.estadoId - b.estadoId);
 
       setData(dados);
+      setArq(dadosArq);
 
       setIsLoading(false);
     } catch (error) {
@@ -59,6 +68,10 @@ const Client: React.FC = () => {
     if (localStorage.getItem("id") == null) {
       Router.push("/");
     } else {
+      const storedName = localStorage.getItem("name");
+      if (storedName) {
+        setNomeUser(storedName);
+      }
       getData();
     }
   }, []);
@@ -75,7 +88,7 @@ const Client: React.FC = () => {
                 <Row>
                   <Col xs={12} sm={6} md={6} lg={6}>
                     <hgroup>
-                      <h2>Bem vindo, </h2>
+                      <h2>Bem vindo, {nomeUser}</h2>
                       <h3>Gerenciamento de Tarefas</h3>
                     </hgroup>{" "}
                   </Col>
@@ -122,7 +135,7 @@ const Client: React.FC = () => {
             />
             <ModalArquivados
               columns={columns}
-              data={data}
+              data={arq}
               show={modalArq}
               fecharModal={() => setModalArq(false)}
               atualizaTabela={getData}

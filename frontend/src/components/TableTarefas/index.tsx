@@ -34,7 +34,7 @@ const TableTarefas: React.FC<TableProps> = ({
 
   async function arquivaTarefa() {
     try {
-      const res = await api.post("/tarefas/arquivar/" + selected.id);
+      const res = await api.post("/tarefas/des-arquivar/" + selected.id);
       try {
         await atualizaTabela();
       } catch (error) {

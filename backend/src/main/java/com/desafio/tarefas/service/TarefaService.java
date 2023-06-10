@@ -120,15 +120,25 @@ public class TarefaService {
             throw new IllegalArgumentException("Tarefa com o id " + id + " não existe!");
         } else {
             Tarefa tarefa = tarefaFind.get();
-            Optional<Estado> estadoFind = estadoRepository.findByEstado("Arquivada");
-            tarefa.setEstado(estadoFind.get());
-            tarefa = tarefaRepository.save(tarefa);
+            Optional<Estado> arquiva = estadoRepository.findByEstado("Arquivada");
+            Optional<Estado> nIniciada = estadoRepository.findByEstado("Não Iniciada");
+            if(tarefa.getEstado().equals(arquiva.get())) {
+                tarefa.setEstado(nIniciada.get());
+            } else {
+                tarefa.setEstado(arquiva.get());   
+            }
+            tarefa = tarefaRepository.save(tarefa); 
+            
             return ResponseEntity.ok(tarefa);
         }
     }
 
     public List<Tarefa> tarefaPorUsuario(Integer usuarioId) {
         return tarefaRepository.findByUsuarioId(usuarioId);
+    }
+
+    public List<Tarefa> tarefaArquivadaPorUsuario(Integer usuarioId) {
+        return tarefaRepository.findArquivadaByUsuarioId(usuarioId);
     }
 
 }

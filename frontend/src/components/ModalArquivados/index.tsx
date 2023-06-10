@@ -27,11 +27,23 @@ const ModalArquivados: React.FC<ModalArquivadosProps> = ({
   atualizaTabela,
 }) => {
   const [selected, setSelected] = useState(null);
-  const [modalStatus, setModalStatus] = useState(false);
-  const [modalAtt, setModalAtt] = useState(false);
   const handleRowClick = async (row) => {
     setSelected(row.original);
   };
+
+  async function desarquivarTarefa() {
+    try {
+      const res = await api.post("/tarefas/des-arquivar/" + selected.id);
+      try {
+        await atualizaTabela();
+      } catch (error) {
+        toast.error("Erro de Atualizacao da tabela");
+      }
+      toast.success("Tarefa Desarquivada!");
+    } catch (error) {
+      toast.error("Erro!");
+    }
+  }
 
   const {
     getTableProps,
@@ -114,6 +126,7 @@ const ModalArquivados: React.FC<ModalArquivadosProps> = ({
               className={`${styles.menuitem} ${
                 selected === null ? styles.disabled : ""
               }`}
+              onClick={() => desarquivarTarefa()}
               disabled={selected === null}
             >
               Desarquivar
