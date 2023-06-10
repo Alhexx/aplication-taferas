@@ -73,59 +73,59 @@ const TableTarefas: React.FC<TableProps> = ({
   return (
     <>
       <ContextMenuTrigger id="tarefas" holdToDisplay={-1}>
-        <table {...getTableProps()} className={styles.table}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              const estado = row.original.estado;
-
-              const isSelected = row.original === selected;
-              const rowColor =
-                estado == "Não Iniciada"
-                  ? "#ffe4e1"
-                  : estado == "Em Progresso"
-                  ? "#b0f2c2"
-                  : "#ff94a2";
-
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  style={{
-                    border: isSelected ? "5px solid #cce5ff" : "none",
-                  }}
-                >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps({
-                          onClick: () => handleRowClick(row),
-                          style: {
-                            border: "none",
-                            background: rowColor,
-                            cursor: "pointer",
-                          },
-                        })}
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
+        <div className={styles.tablewrapper}>
+          <table {...getTableProps()} className={styles.table}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row) => {
+                prepareRow(row);
+                const estado = row.original.estado;
+                const isSelected = row.original === selected;
+                const rowColor =
+                  estado == "Não Iniciada"
+                    ? "#ffe4e1"
+                    : estado == "Em Progresso"
+                    ? "#b0f2c2"
+                    : "#ff94a2";
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    style={{
+                      border: isSelected ? "5px solid #cce5ff" : "none",
+                    }}
+                  >
+                    {row.cells.map((cell) => {
+                      return (
+                        <td
+                          {...cell.getCellProps({
+                            onClick: () => handleRowClick(row),
+                            style: {
+                              border: "none",
+                              background: rowColor,
+                              cursor: "pointer",
+                            },
+                          })}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </ContextMenuTrigger>
       <ContextMenu id="tarefas" className={styles.contextmenu}>
         <MenuItem

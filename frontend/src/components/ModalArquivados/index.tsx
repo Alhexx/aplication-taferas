@@ -76,50 +76,52 @@ const ModalArquivados: React.FC<ModalArquivadosProps> = ({
       <Modal.Body>
         <>
           <ContextMenuTrigger id="arquivadas" holdToDisplay={-1}>
-            <table {...getTableProps()} className={styles.table}>
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {page.map((row) => {
-                  prepareRow(row);
-                  const isSelected = row.original === selected;
-                  return (
-                    <tr
-                      {...row.getRowProps()}
-                      style={{
-                        border: isSelected ? "5px solid #cce5ff" : "none",
-                      }}
-                    >
-                      {row.cells.map((cell) => {
-                        return (
-                          <td
-                            {...cell.getCellProps({
-                              onClick: () => handleRowClick(row),
-                              style: {
-                                border: "none",
-                                background: "white",
-                                cursor: "pointer",
-                              },
-                            })}
-                          >
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
+            <div className={styles.tablewrapper}>
+              <table {...getTableProps()} className={styles.table}>
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps()}>
+                          {column.render("Header")}
+                        </th>
+                      ))}
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  {page.map((row) => {
+                    prepareRow(row);
+                    const isSelected = row.original === selected;
+                    return (
+                      <tr
+                        {...row.getRowProps()}
+                        style={{
+                          border: isSelected ? "5px solid #cce5ff" : "none",
+                        }}
+                      >
+                        {row.cells.map((cell) => {
+                          return (
+                            <td
+                              {...cell.getCellProps({
+                                onClick: () => handleRowClick(row),
+                                style: {
+                                  border: "none",
+                                  background: "white",
+                                  cursor: "pointer",
+                                },
+                              })}
+                            >
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </ContextMenuTrigger>
           <ContextMenu id="arquivadas" className={styles.contextmenu}>
             <MenuItem
