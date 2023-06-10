@@ -88,10 +88,13 @@ yarn dev
 - para visualizar essa tela o usuario tem que estar efetivamente logado, caso contrário ele não consiguirá acessar-la.
   ![Tela de Tarefas](./public/tela-tarefas.png)
 
+  - Nesta tela, digitando no input de consulta o usuário consegue filtrar as informações que ele preferir.
+    ![Tela de Tarefas filtradas](./public/tela-filtrada.png)
+
   - Nesta tela, clicando no botão de <kbd>Adicionar</kbd> é aberto um modal para cadastramento de novas tarefas. Todas tarefas recem criadas tem o estado como "Não iniciada".
     ![Tela de Adicionar tarefas](./public/tela-add.png)
 
-  - Nesta tela, clicando no botão de <kbd>Arquivados</kbd> é aberto um modal que te dá acesso a uma lista de tarefas que foram arquivadas. Nessa lista o usuário pode selecionar qualquer tarefa e desarquivar ela.
+  - Nesta tela, clicando no botão de <kbd>Arquivados</kbd> é aberto um modal que te dá acesso a uma lista de tarefas que foram arquivadas. Nessa lista o usuário pode selecionar qualquer tarefa e desarquivar ela ou excluí-la.
     ![Tela de arquivadas](./public/tela-arquivadas.png)
 
   - Nessa tela, selecionando uma atividade, o usuário pode com um clique no botão direito ter acesso as funcionalidades de <kbd>Mudar Status</kbd>, <kbd>Editar Tarefa</kbd> e <kbd>Arquivar</kbd>.
@@ -103,4 +106,7 @@ yarn dev
       ![Tela de Mudança de Status](./public/tela-muda-status.png)
 
     - Clicando em <kbd>Editar Tarefa</kbd> é aberto um modal que possibilita a edição tanto de titulo quanto de descrição. Tenha em mente que a edição de tarefas tem regras... mas caso alguma seja desrespeitada o usuário recebe um toast explicativo
+      ![Tela de Edição de tarefa](./public/tela-edit.png)
+
+    - Clicando em <kbd>Excluir</kbd> a tarefa é imediatamente excluida. Tenha em mente que a exclusão tem regras... mas caso alguma seja desrespeitada o usuário recebe um toast explicativo
       ![Tela de Edição de tarefa](./public/tela-edit.png)
