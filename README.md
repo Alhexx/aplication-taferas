@@ -99,7 +99,7 @@ yarn dev
   - Nesta tela, clicando no botão de <kbd>Arquivados</kbd> é aberto um modal que te dá acesso a uma lista de tarefas que foram arquivadas. Nessa lista o usuário pode selecionar qualquer tarefa e desarquivar ela ou excluí-la.
     ![Tela de arquivadas](./public/tela-arquivadas.png)
 
-  - Nessa tela, selecionando uma atividade, o usuário pode com um clique no botão direito ter acesso as funcionalidades de <kbd>Mudar Status</kbd>, <kbd>Editar Tarefa</kbd> e <kbd>Arquivar</kbd>.
+  - Nessa tela, selecionando uma atividade, o usuário pode com um clique no botão direito ter acesso as funcionalidades de <kbd>Mudar Status</kbd>, <kbd>Editar Tarefa</kbd>, <kbd>Arquivar</kbd> e <kbd>Excluir</kbd>.
 
     - Clicando em <kbd>Arquivar</kbd> o Estado da tarefa é imediatamente alterado para Arquivado e a tarefa é retirada da lista
       ![Tela de arquivar](./public/tela-context-arquivar.png)
