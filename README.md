@@ -51,7 +51,7 @@ mvn spring-boot:run
 ```bash
 npm i
 # ou
-yarn i
+yarn install
 ```
 
 2. Execute a aplicação
