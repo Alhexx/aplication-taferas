@@ -37,18 +37,18 @@ public class UsuarioController {
     Optional<Usuario> usuarioFind = usuarioService.findByEmail(loginDTO.getEmail());
 
     if (!usuarioFind.isPresent()) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email not registered");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email não registrado!");
     }
     
     if (!usuarioFind.get().getPassword().equals(loginDTO.getPassword())) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha Incorreta!");
     }
 
     return ResponseEntity.ok(usuarioFind.get());
 }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUsuarioById(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> getUsuarioById(@PathVariable(value = "id") Integer id) {
         Optional<Usuario> usuario = usuarioService.getUsuarioById(id);
         if(usuario.isPresent()) {
            return ResponseEntity.ok(usuario.get()); 
@@ -65,13 +65,13 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUsuario(@PathVariable("id") Integer id, @RequestBody Usuario usuario) {
+    public ResponseEntity<Void> updateUsuario(@PathVariable(value = "id") Integer id, @RequestBody Usuario usuario) {
         usuarioService.updateUsuario(id, usuario);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuario(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deleteUsuario(@PathVariable(value = "id") Integer id) {
         usuarioService.deleteUsuario(id);
         return ResponseEntity.noContent().build();
     }

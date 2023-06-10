@@ -36,8 +36,7 @@ export default function login() {
 
       window.location.href = "/client";
     } catch (error) {
-      console.log(JSON.stringify(error));
-      toast.error("Login Error!");
+      toast.error(error.response.data);
     }
 
     setIsWaitingResponse(false);
