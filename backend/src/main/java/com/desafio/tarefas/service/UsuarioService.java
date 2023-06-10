@@ -31,7 +31,7 @@ public class UsuarioService {
     public Usuario createUsuario(UsuarioDTO usuarioDTO) {
         Optional<Usuario> usuarioFind = usuarioRepository.findByEmail(usuarioDTO.getEmail());
         if (usuarioFind.isPresent()) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new IllegalArgumentException("Email já cadastrado!");
         }  
 
         Usuario usuario = new Usuario();
@@ -44,7 +44,7 @@ public class UsuarioService {
 
     public void updateUsuario(Integer id, Usuario usuario) {
         if (!usuarioRepository.existsById(id)) {
-            throw new IllegalArgumentException("Invalid usuario ID: " + id);
+            throw new IllegalArgumentException("Usuario com o id " + id + " não existe!");
         }
         usuario.setId(id);
         usuarioRepository.save(usuario);
@@ -52,7 +52,7 @@ public class UsuarioService {
 
     public void deleteUsuario(Integer id) {
         if (!usuarioRepository.existsById(id)) {
-            throw new IllegalArgumentException("Invalid usuario ID: " + id);
+            throw new IllegalArgumentException("Usuario com o id " + id + " não existe!");
         }
         usuarioRepository.deleteById(id);
     }
