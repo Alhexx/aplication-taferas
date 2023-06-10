@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { useTable, usePagination, useRowSelect } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useRowSelect,
+  useGlobalFilter,
+} from "react-table";
 import {
   ContextMenu,
   MenuItem,
@@ -13,6 +18,7 @@ import styles from "./style.module.scss";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import ModalStatus from "../ModalStatus";
 import ModatlAttTarefa from "../ModalAttTarefa";
+import { FilterTabelas } from "../FilterTabelas";
 
 interface TableProps {
   columns: any[];
@@ -66,6 +72,7 @@ const TableTarefas: React.FC<TableProps> = ({
     headerGroups,
     prepareRow,
     state,
+    setGlobalFilter,
     page,
     canPreviousPage,
     canNextPage,
@@ -80,12 +87,19 @@ const TableTarefas: React.FC<TableProps> = ({
       columns,
       data,
     },
+    useGlobalFilter,
     usePagination,
     useRowSelect
   );
 
+  const { globalFilter } = state;
+
   return (
     <>
+      <FilterTabelas
+        globalFilter={globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
       <ContextMenuTrigger id="tarefas" holdToDisplay={-1}>
         <div className={styles.tablewrapper}>
           <table {...getTableProps()} className={styles.table}>
