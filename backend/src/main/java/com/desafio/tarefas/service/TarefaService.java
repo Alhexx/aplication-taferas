@@ -95,7 +95,7 @@ public class TarefaService {
         } else {
             Tarefa tarefa = tarefaFind.get();
             Optional<Tarefa> tarefaTitulo = tarefaRepository.findByTitulo(tarefaUpdateDTO.getTitulo());
-            if(tarefaTitulo.isPresent()) {
+            if(tarefaTitulo.get().getId() != id) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Tarefa com esse titulo já existe"); 
             } else {  
                 if(tarefaUpdateDTO.getTitulo() != null) {
